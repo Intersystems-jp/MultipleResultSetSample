@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2018.1.1 (Build 312U)" ts="2019-01-28 16:39:31">
+<Class name="devcon2008.MultipleResultSetSample">
+<Description><![CDATA[
+This sample shows how to work with SP and multiple resultsets in the <br>
+DevCon 2008 presentation "Cache/Ensemble with Java and RAD"]]></Description>
+<IncludeCode>%occInclude</IncludeCode>
+<TimeChanged>65041,59938.552689</TimeChanged>
+<TimeCreated>61074,43610.69637</TimeCreated>
+
+<Method name="getMultipleResultSets">
+<Description>
+This is a sample of how to create multiple resultsets</Description>
+<ClassMethod>1</ClassMethod>
+<FormalSpec>pMax:%Library.Integer=2</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<SqlName>getMultipleResultSets</SqlName>
+<SqlProc>1</SqlProc>
+<ReturnResultsets>1</ReturnResultsets>
+<Implementation><![CDATA[
+	#dim sqlEx,tSC as %Exception.StatusException
+	#dim tRS as %SQL.StatementResult
+	#dim tIdx as %Integer
+	#dim tFields,tSQL as %String
+	#dim tSystemError as %SYSTEM.Error
+	#dim %sqlcontext as %Library.ProcedureContext
+	
+	try
+	{
+		set tFields = $lb("ID","Name","DOB","Company->Name as Company")
+		set tSC = $$$OK
+		for tIdx = 1 : 1 : 5
+		{
+			set tSQL = "SELECT TOP 20 {Fields} FROM Sample.Employee ORDER BY ID {Order}"
+			set tSQL = $replace(tSQL,"{Fields}",$listtostring($list(tFields,1,1+$random($ll(tFields)))))
+			set tSQL = $replace(tSQL,"{Order}",$select($random(2)=0:"ASC",1:"DESC"))
+			set stmt =##class(%SQL.Statement).%New()
+			set tSC = stmt.%Prepare(tSQL)
+			$$$THROWONERROR(sqlEx,tSC)
+			
+			set tRS= stmt.%Execute()
+			
+			if ($data(%sqlcontext))
+			{
+				set tSC = %sqlcontext.AddResultSet(tRS)
+			}
+		}
+	}
+	catch (sqlEx)
+	{
+		set %sqlcontext.%SQLCODE=sqlEx.AsSQLCODE()
+		set %sqlcontext.%Message=sqlEx.AsSQLMessage()
+		set tSC = sqlEx.AsStatus()
+	}
+	
+	quit tSC
+]]></Implementation>
+</Method>
+</Class>
+</Export>
