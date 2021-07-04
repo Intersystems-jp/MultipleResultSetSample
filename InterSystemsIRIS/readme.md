@@ -25,7 +25,7 @@
 ## Java サンプルの実行
 
 **実行前に、InterSystems IRISのjdbc用jarファイルをClassPathへ登録する必要があります。**
-詳しくは[ドキュメント](https://docs.intersystems.com/irislatestj/csp/docbook/DocBook.UI.Page.cls?KEY=AFL_C2460)をご参照ください。
+詳しくは[ドキュメント](https://docs.intersystems.com/irislatestj/csp/docbook/Doc.View.cls?KEY=AFL_jdbc#AFL_jdbc_begin)をご参照ください。
 
 
 また、[サンプル 10行目](./MultiRS.java#L10)にある JDBC の接続文字列に指定している IRIS のポート番号をご確認ください（サンプルでは、51773 を指定しています）。

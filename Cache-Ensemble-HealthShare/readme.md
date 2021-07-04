@@ -21,7 +21,7 @@
 ## Javaサンプルの実行
 
 **実行前に、弊社製品のJDBC用JARファイルをClassPathへ登録する必要があります。**
-詳しくは[ドキュメント](https://docs.intersystems.com/enslatestj/csp/docbook/DocBook.UI.Page.cls?KEY=BGJD_intro#BGJD_intro_packages) をご参照ください。
+詳しくは[ドキュメント](https://docs.intersystems.com/latestj/csp/docbook/DocBook.UI.Page.cls?KEY=BGJD_intro#BGJD_intro_packages) をご参照ください。
 
 また、[サンプル 10行目](./MultiRS.java#L10)にある JDBC の接続文字列に指定しているポート番号をご確認ください（サンプルでは、1972 を指定しています）。
 
